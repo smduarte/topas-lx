@@ -89,7 +89,7 @@ RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash
 
 RUN chmod a+rx /startup.sh
 USER topas
-
+WORKDIR topas
 CMD /startup.sh
 
 
