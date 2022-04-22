@@ -52,7 +52,7 @@ RUN add-apt-repository ppa:fuscated/codeblocks-nightly && \
 
 
 RUN apt-get update && apt-get install -y fonts-liberation && \
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb && \
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
