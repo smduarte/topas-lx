@@ -19,4 +19,9 @@ rm -f $HOME/.local/share/applications/*.desktop && cp /tmp/*.desktop  $HOME/.loc
 
 chown -R $USER $HOME 
 
-exec /bin/tini -s -- /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+/usr/bin/lxpanel --profile LXDE &
+/usr/bin/pcmanfm --desktop --profile LXDE &
+
+#exec /bin/tini -s -- /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
+
+exec /usr/bin/openbox
