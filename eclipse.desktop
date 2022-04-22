@@ -1,0 +1,8 @@
+[Desktop Entry]
+Encoding=UTF-8
+Type=Application
+Name=Eclipse
+Name[en_US]=Eclipse
+Exec=/opt/eclipse/eclipse
+StartupNotify=true
+Categories=Development

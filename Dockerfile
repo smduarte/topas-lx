@@ -57,7 +57,7 @@ RUN apt-get update && apt-get install -y fonts-liberation && \
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
 
-RUN dpkg -i /google-chrome-stable_current_amd64.deb
+RUN dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google*
 
 # tini for subreap
 ARG TINI_VERSION=v0.18.0
@@ -69,6 +69,7 @@ RUN groupadd docker && \
     chmod a+x /startup.sh
  
 COPY desktop-items-0.conf /tmp
+COPY *.desktop /tmp
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
 COPY ./supervisor/* /etc/supervisor/conf.d/
@@ -86,8 +87,6 @@ ENV GID 1001
 
 RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
 
-#USER topas
-#WORKDIR /home/topas
 CMD /startup.sh
 
 

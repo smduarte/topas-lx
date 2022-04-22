@@ -3,7 +3,7 @@ echo "Starting..."
 
 mkdir -p $HOME/.config/pcmanfm/LXDE && cp /tmp/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE/ 
 
-setxkbmap -model macbook79 -layout pt
+#setxkbmap -model macbook79 -layout pt
 
 
 for file in /etc/supervisor/conf.d/*; do
