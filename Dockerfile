@@ -87,7 +87,7 @@ ENV GID 1001
 
 RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
 
-RUN chmod a+rx /startup.sh
+RUN chmod a+rx /startup.sh && chown topas /tmp/*
 USER topas
 WORKDIR /home/topas
 CMD /startup.sh
