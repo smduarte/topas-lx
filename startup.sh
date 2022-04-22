@@ -1,7 +1,6 @@
 #!/bin/bash
 echo "Starting..."
 
-mkdir -p $HOME/.config/pcmanfm/LXDE && cp /tmp/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE/ 
 
 #setxkbmap -model macbook79 -layout pt
 
@@ -15,10 +14,14 @@ mkdir -p $HOME/.config/pcmanfm/LXDE && cp /tmp/desktop-items-0.conf $HOME/.confi
 #chmod 777 /var/run/docker.sock
 
 mkdir -p $HOME/.local/share/applications 
+mkdir -p $HOME/.config/pcmanfm/LXDE && cp /tmp/desktop-items-0.conf $HOME/.config/pcmanfm/LXDE/ 
 rm -f $HOME/.local/share/applications/*.desktop && cp /tmp/*.desktop  $HOME/.local/share/applications/
 
+export HOME=/home/topas
+export USER=topas
 
-sudo /usr/bin/lxpanel --profile LXDE &
+
+/usr/bin/lxpanel --profile LXDE &
 /usr/bin/pcmanfm --desktop --profile LXDE &
 
 #exec /bin/tini -s -- /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
