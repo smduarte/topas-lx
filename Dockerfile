@@ -88,4 +88,5 @@ RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash
 #WORKDIR /home/topas
 CMD /startup.sh
 
+
 RUN dpkg -i /google-chrome-stable_current_amd64.deb
