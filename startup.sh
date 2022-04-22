@@ -24,4 +24,4 @@ chown -R $USER $HOME
 
 #exec /bin/tini -s -- /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
 
-exec sudo -u topas /usr/bin/openbox
+exec /usr/bin/openbox
