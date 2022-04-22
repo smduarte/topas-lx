@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y wget && \
 
 
 #------------------------------------------------------
-FROM ubuntu
+FROM ubuntu:18.04
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install git, supervisor, VNC, & X11 packages
