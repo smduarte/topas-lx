@@ -57,6 +57,8 @@ RUN apt-get update && apt-get install -y fonts-liberation && \
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
 
+RUN dpkg -i /google-chrome-stable_current_amd64.deb
+
 # tini for subreap
 ARG TINI_VERSION=v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
@@ -89,4 +91,3 @@ RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash
 CMD /startup.sh
 
 
-RUN dpkg -i /google-chrome-stable_current_amd64.deb
