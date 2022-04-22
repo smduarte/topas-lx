@@ -26,7 +26,6 @@ RUN set -ex; \
       lxde \
       file-roller \
       sudo iputils-ping iproute2 socat x11-xkb-utils \
-      
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
