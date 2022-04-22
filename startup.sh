@@ -18,7 +18,7 @@ mkdir -p $HOME/.local/share/applications
 rm -f $HOME/.local/share/applications/*.desktop && cp /tmp/*.desktop  $HOME/.local/share/applications/
 
 
-/usr/bin/lxpanel --profile LXDE &
+sudo /usr/bin/lxpanel --profile LXDE &
 /usr/bin/pcmanfm --desktop --profile LXDE &
 
 #exec /bin/tini -s -- /usr/bin/supervisord -n -c /etc/supervisor/supervisord.conf
