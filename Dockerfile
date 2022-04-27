@@ -31,11 +31,11 @@ RUN set -ex; \
     && rm -rf /var/lib/apt/lists/*
 
 # TEXT EDITORS
-RUN apt-get update && apt-get install -y gedit kate vim joe
+RUN apt-get update && apt-get install -y gedit kate vim joe geany
 
 
 # JDK 11
-RUN apt-get update && apt-get install -y locales ca-certificates openjdk-11-jdk
+RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk
 
 # Free Pascal
 RUN apt-get update && apt-get install -y lazarus
