@@ -69,12 +69,18 @@ RUN add-apt-repository ppa:fuscated/codeblocks-nightly && \
     	&& rm -rf /var/lib/apt/lists/*
 
 
-RUN apt-get update && apt-get install -y fonts-liberation && \
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
-	&& dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google* \
+#RUN apt-get update && apt-get install -y fonts-liberation && \
+#	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+#	&& dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google* \
+#	&& apt autoclean -y \
+#   	&& apt autoremove -y \
+#    	&& rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y firefox && \
 	&& apt autoclean -y \
     	&& apt autoremove -y \
     	&& rm -rf /var/lib/apt/lists/*
+
 
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
