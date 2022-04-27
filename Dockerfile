@@ -25,7 +25,7 @@ RUN set -ex; \
       supervisor \
       lxde \
       file-roller \
-      sudo iputils-ping iproute2 socat x11-xkb-utils iptables\
+      sudo iputils-ping iproute2 socat x11-xkb-utils iptables-persistent\
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
@@ -111,10 +111,6 @@ RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash
 RUN chmod a+rx /startup.sh && chown topas /tmp/*
 
 ENV MOOSHAK 192.168.100.1
-
-RUN	iptables -A OUTPUT -d $MOOSHAK -j ACCEPT && \
-	iptables -A OUTPUT -d 127.0.0.0/8 -j ACCEPT   && \
-	iptables -A OUTPUT -j REJECT
 
 USER topas
 WORKDIR /home/topas
