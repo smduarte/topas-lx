@@ -112,6 +112,8 @@ RUN chmod a+rx /startup.sh && chown topas /tmp/*
 
 ENV MOOSHAK 192.168.100.1
 
+RUN echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER
+
 USER topas
 WORKDIR /home/topas
 CMD /startup.sh
