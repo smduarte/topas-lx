@@ -25,7 +25,7 @@ RUN set -ex; \
       supervisor \
       lxde \
       file-roller \
-      sudo iputils-ping iproute2 socat x11-xkb-utils \
+      sudo iputils-ping iproute2 socat x11-xkb-utils iptables\
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
