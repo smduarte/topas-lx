@@ -113,13 +113,9 @@ COPY desktop-items-0.conf /tmp
 COPY *.desktop /tmp
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
-#COPY ./supervisor/* /etc/supervisor/conf.d/
 
 COPY startup.sh /
 COPY user-session.sh /
-
-RUN groupadd docker && \
-    chmod a+x /*.sh
 
 ENV LANG pt_PT.UTF-8
 ENV LANGUAGE en_USA
@@ -132,15 +128,9 @@ ENV HOME /home/$USER
 ENV UID 1000
 ENV GID 1001
 
-RUN useradd $USER -m --home $HOME -u $UID --groups sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
+RUN useradd $USER -m --home $HOME -u $UID --shell /bin/bash && (echo "topas:topas" | chpasswd)
 
-#RUN chmod a+rx /startup.sh && chown topas /tmp/*
+RUN chmod a+rx /*.sh && chown topas /tmp/*
 
-#RUN echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER
-
-
-#USER topas
 WORKDIR /home/topas
 CMD /startup.sh
-
-
