@@ -109,6 +109,13 @@ ENV GID 1001
 RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
 
 RUN chmod a+rx /startup.sh && chown topas /tmp/*
+
+ENV MOOSHAK 192.168.100.1
+
+RUN	iptables -A OUTPUT -d $MOOSHAK -j ACCEPT && \
+	iptables -A OUTPUT -d 127.0.0.0/8 -j ACCEPT   && \
+	iptables -A OUTPUT -j REJECT
+
 USER topas
 WORKDIR /home/topas
 CMD /startup.sh
