@@ -112,15 +112,13 @@ ENV HOME /home/$USER
 ENV UID 1000
 ENV GID 1001
 
-RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
+RUN useradd $USER -m --home $HOME -u $UID --groups sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
 
-RUN chmod a+rx /startup.sh && chown topas /tmp/*
+#RUN chmod a+rx /startup.sh && chown topas /tmp/*
 
-ENV MOOSHAK 192.168.100.1
+#RUN echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER
 
-RUN echo "$USER ALL=(ALL:ALL) NOPASSWD: ALL" | sudo tee /etc/sudoers.d/$USER
-
-USER topas
+#USER topas
 WORKDIR /home/topas
 CMD /startup.sh
 
