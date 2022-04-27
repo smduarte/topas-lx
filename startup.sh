@@ -10,4 +10,6 @@ sudo iptables -A OUTPUT -j REJECT
 #sudo deluser topas sudo
 #sudo rm -f /etc/sudoers.d/topas
 
-exec su topas -c /user-session.h
+xhost +
+export DISPLAY=:0
+su-exec topas:1001 /user-session.sh
