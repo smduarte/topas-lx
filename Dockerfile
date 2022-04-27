@@ -76,7 +76,7 @@ RUN add-apt-repository ppa:fuscated/codeblocks-nightly && \
 #   	&& apt autoremove -y \
 #    	&& rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y firefox && \
+RUN apt-get update && apt-get install -y firefox \
 	&& apt autoclean -y \
     	&& apt autoremove -y \
     	&& rm -rf /var/lib/apt/lists/*
