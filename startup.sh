@@ -1,6 +1,9 @@
 #!/bin/bash
 echo "Starting..."
 
+sudo iptables -A OUTPUT -d 192.168.100.1 -j ACCEPT
+sudo iptables -A OUTPUT -d 127.0.0.1/8 -j ACCEPT
+sudo iptables -A OUTPUT -j REJECT
 
 #setxkbmap -model macbook79 -layout pt
 
