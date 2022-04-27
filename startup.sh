@@ -1,9 +1,13 @@
 #!/bin/bash
 echo "Starting..."
 
-sudo iptables -A OUTPUT -d 192.168.100.1 -j ACCEPT
+MOOSHAK=192.168.100.1
+
+sudo iptables -A OUTPUT -d $MOOSHAK -j ACCEPT
 sudo iptables -A OUTPUT -d 127.0.0.1/8 -j ACCEPT
 sudo iptables -A OUTPUT -j REJECT
+
+sudo deluser username sudo
 
 #setxkbmap -model macbook79 -layout pt
 
