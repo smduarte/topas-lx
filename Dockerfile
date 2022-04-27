@@ -31,33 +31,54 @@ RUN set -ex; \
     && rm -rf /var/lib/apt/lists/*
 
 # TEXT EDITORS
-RUN apt-get update && apt-get install -y gedit kate vim joe geany
+RUN apt-get update && apt-get install -y gedit kate vim joe geany \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 
 # JDK 11
-RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk
-
+RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+    
 # Free Pascal
-RUN apt-get update && apt-get install -y lazarus
+RUN apt-get update && apt-get install -y lazarus \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Python3
-RUN apt-get update && apt-get install -y python3 idle3
+RUN apt-get update && apt-get install -y python3 idle3 \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # C++
-RUN apt-get update && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y build-essential \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Code::blocks
 RUN add-apt-repository ppa:fuscated/codeblocks-nightly && \
-	apt-get update && apt-get install -y codeblocks
+	apt-get update && apt-get install -y codeblocks \
+	&& apt autoclean -y \
+    	&& apt autoremove -y \
+    	&& rm -rf /var/lib/apt/lists/*
 
 
 RUN apt-get update && apt-get install -y fonts-liberation && \
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+	&& dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google* \
+	&& apt autoclean -y \
+    	&& apt autoremove -y \
+    	&& rm -rf /var/lib/apt/lists/*
 
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
 
-RUN dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google*
 
 # tini for subreap
 ARG TINI_VERSION=v0.18.0
