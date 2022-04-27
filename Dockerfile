@@ -37,7 +37,7 @@ RUN apt-get update && apt-get install -y gedit kate vim joe geany \
     && rm -rf /var/lib/apt/lists/*
 
 
-# JDK 11
+# JDK 8
 RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk \
     && apt autoclean -y \
     && apt autoremove -y \
@@ -90,16 +90,18 @@ COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 ARG TINI_VERSION=v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
 RUN chmod +x /bin/tini
-
-COPY startup.sh /
-RUN groupadd docker && \
-    chmod a+x /startup.sh
  
 COPY desktop-items-0.conf /tmp
 COPY *.desktop /tmp
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
-COPY ./supervisor/* /etc/supervisor/conf.d/
+#COPY ./supervisor/* /etc/supervisor/conf.d/
+
+COPY startup.sh /
+COPY user-session.sh /
+
+RUN groupadd docker && \
+    chmod a+x /*.sh
 
 ENV LANG pt_PT.UTF-8
 ENV LANGUAGE en_USA
