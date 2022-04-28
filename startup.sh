@@ -9,4 +9,5 @@ sudo iptables -A OUTPUT -j REJECT
 
 xhost +
 export DISPLAY=:0
+chown -R $USER /home/topas
 su-exec topas:1001 /user-session.sh
