@@ -25,55 +25,98 @@ RUN set -ex; \
       supervisor \
       lxde \
       file-roller \
-      sudo iputils-ping iproute2 socat x11-xkb-utils \
+      sudo iputils-ping iproute2 socat x11-xkb-utils iptables-persistent\
     && apt autoclean -y \
     && apt autoremove -y \
     && rm -rf /var/lib/apt/lists/*
 
+# Install latest su-exec
+RUN  set -ex; \
+     \
+     curl -o /usr/local/bin/su-exec.c https://raw.githubusercontent.com/ncopa/su-exec/master/su-exec.c; \
+     \
+     fetch_deps='gcc libc-dev'; \
+     apt-get update; \
+     apt-get install -y --no-install-recommends $fetch_deps; \
+     rm -rf /var/lib/apt/lists/*; \
+     gcc -Wall \
+         /usr/local/bin/su-exec.c -o/usr/local/bin/su-exec; \
+     chown root:root /usr/local/bin/su-exec; \
+     chmod 0755 /usr/local/bin/su-exec; \
+     rm /usr/local/bin/su-exec.c; \
+     \
+     apt-get purge -y --auto-remove $fetch_deps
+
+
 # TEXT EDITORS
-RUN apt-get update && apt-get install -y gedit kate vim joe
+RUN apt-get update && apt-get install -y gedit kate vim joe geany \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 
-# JDK 11
-RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk
-
+# JDK 8
+RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
+    
 # Free Pascal
-RUN apt-get update && apt-get install -y lazarus
+RUN apt-get update && apt-get install -y lazarus \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Python3
-RUN apt-get update && apt-get install -y python3 idle3
+RUN apt-get update && apt-get install -y python3 idle3 \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # C++
-RUN apt-get update && apt-get install -y build-essential
+RUN apt-get update && apt-get install -y build-essential \
+    && apt autoclean -y \
+    && apt autoremove -y \
+    && rm -rf /var/lib/apt/lists/*
 
 # Code::blocks
 RUN add-apt-repository ppa:fuscated/codeblocks-nightly && \
-	apt-get update && apt-get install -y codeblocks
+	apt-get update && apt-get install -y codeblocks \
+	&& apt autoclean -y \
+    	&& apt autoremove -y \
+    	&& rm -rf /var/lib/apt/lists/*
 
 
-RUN apt-get update && apt-get install -y fonts-liberation && \
-	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#RUN apt-get update && apt-get install -y fonts-liberation && \
+#	wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb \
+#	&& dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google* \
+#	&& apt autoclean -y \
+#   	&& apt autoremove -y \
+#    	&& rm -rf /var/lib/apt/lists/*
+
+RUN apt-get update && apt-get install -y firefox \
+	&& apt autoclean -y \
+    	&& apt autoremove -y \
+    	&& rm -rf /var/lib/apt/lists/*
+
 
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
 
-RUN dpkg -i /google-chrome-stable_current_amd64.deb && rm -f /google*
 
 # tini for subreap
 ARG TINI_VERSION=v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
 RUN chmod +x /bin/tini
-
-COPY startup.sh /
-RUN groupadd docker && \
-    chmod a+x /startup.sh
  
 COPY desktop-items-0.conf /tmp
 COPY *.desktop /tmp
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
-COPY ./supervisor/* /etc/supervisor/conf.d/
-COPY ./topas.png /
+
+COPY startup.sh /
+COPY user-session.sh /
+
 ENV LANG pt_PT.UTF-8
 ENV LANGUAGE en_USA
 ENV LC_CTYPE pt_PT.UTF-8
@@ -85,11 +128,9 @@ ENV HOME /home/$USER
 ENV UID 1000
 ENV GID 1001
 
-RUN useradd $USER -m --home $HOME -u $UID --groups docker,sudo --shell /bin/bash && (echo "topas:topas" | chpasswd)
+RUN useradd $USER -m --home $HOME -u $UID --shell /bin/bash && (echo "topas:topas" | chpasswd)
 
-RUN chmod a+rx /startup.sh && chown topas /tmp/*
-USER topas
+RUN chmod a+rx /*.sh && chown topas /tmp/*
+
 WORKDIR /home/topas
 CMD /startup.sh
-
-
