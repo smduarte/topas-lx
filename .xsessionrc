@@ -1,0 +1,22 @@
+xhost +
+
+USER=topas
+
+[ ! "$(docker volume ls | grep home-$USER )" ] && \
+        docker volume create home-$USER 
+
+export DISPLAY=:0
+
+IMAGE=smduarte/topas-lx
+
+docker pull smduarte/$IMAGE
+
+exec docker run \
+       --rm \
+       --mount source=home-$USER,target=/home \
+       -v /media/$USER:/home/topas/Desktop/media/ \
+       -v /tmp/.X11-unix:/tmp/.X11-unix \
+       --privileged \
+       -e DISPLAY \
+       $IMAGE
+       
