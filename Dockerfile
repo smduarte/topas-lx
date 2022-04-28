@@ -116,6 +116,7 @@ RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
 
 COPY startup.sh /
 COPY user-session.sh /
+COPY topas.png /
 
 ENV LANG pt_PT.UTF-8
 ENV LANGUAGE en_USA
