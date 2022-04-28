@@ -35,7 +35,7 @@ RUN apt-get update && apt-get install -y gedit kate vim joe
 
 
 # JDK 11
-RUN apt-get update && apt-get install -y locales ca-certificates openjdk-11-jdk
+RUN apt-get update && apt-get install -y locales ca-certificates openjdk-8-jdk
 
 # Free Pascal
 RUN apt-get update && apt-get install -y lazarus
@@ -73,7 +73,7 @@ COPY *.desktop /tmp
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
 COPY ./supervisor/* /etc/supervisor/conf.d/
-
+COPY ./topas.png /
 ENV LANG pt_PT.UTF-8
 ENV LANGUAGE en_USA
 ENV LC_CTYPE pt_PT.UTF-8
