@@ -103,6 +103,10 @@ RUN apt-get update && apt-get install -y firefox \
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
 
+RUN apt-get update && apt-get install -y nano \
+	&& apt autoclean -y \
+    	&& apt autoremove -y \
+    	&& rm -rf /var/lib/apt/lists/*
 
 # tini for subreap
 ARG TINI_VERSION=v0.18.0
