@@ -115,6 +115,8 @@ RUN chmod +x /bin/tini
  
 COPY desktop-items-0.conf /tmp
 COPY *.desktop /tmp
+COPY *.cfg /home/topas
+COPY *.cfg /home/topas/Desktop/
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
 
