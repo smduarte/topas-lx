@@ -119,8 +119,6 @@ RUN chmod +x /bin/tini
  
 COPY desktop-items-0.conf /tmp
 COPY *.desktop /tmp
-COPY *.cfg /home/topas
-COPY *.cfg /home/topas/Desktop/
 
 RUN locale-gen pt_PT.UTF-8 en_US.UTF-8
 
@@ -140,6 +138,9 @@ ENV UID 1000
 ENV GID 1001
 
 RUN useradd $USER -m --home $HOME -u $UID --shell /bin/bash && (echo "topas:topas" | chpasswd)
+
+COPY fp.cfg /home/topas/
+COPY fp.cfg /home/topas/Desktop/
 
 RUN chmod a+rx /*.sh && chown topas /tmp/*
 
