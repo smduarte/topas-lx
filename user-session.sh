@@ -10,4 +10,5 @@ export USER=topas
 /usr/bin/lxpanel --profile LXDE &
 /usr/bin/pcmanfm --desktop --profile LXDE &
 
-exec /usr/bin/openbox
+setxkbmap pt
+exec /usr/bin/openbox --replace

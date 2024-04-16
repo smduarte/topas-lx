@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as temp_files_eclipse
+FROM ubuntu:20.04 as temp_files_eclipse
 
 WORKDIR /tmp
 
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y wget && \
 
 
 #------------------------------------------------------
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install git, supervisor, VNC, & X11 packages
@@ -111,20 +111,10 @@ RUN apt-get update && apt-get install -y firefox \
     	&& rm -rf /var/lib/apt/lists/*
 
 
-RUN apt-get update && apt-get install -y spyder \
-	&& apt autoclean -y \
-    	&& apt autoremove -y \
-    	&& rm -rf /var/lib/apt/lists/*
-
 COPY --from=temp_files_eclipse /tmp/eclipse /opt/eclipse/
 #COPY --from=temp_files_intellij /tmp/idea /opt/idea/
 
 RUN apt-get update && apt-get install -y nano \
-	&& apt autoclean -y \
-    	&& apt autoremove -y \
-    	&& rm -rf /var/lib/apt/lists/*
-
-RUN apt-get update && apt-get install -y x11-xkb-utils \
 	&& apt autoclean -y \
     	&& apt autoremove -y \
     	&& rm -rf /var/lib/apt/lists/*
@@ -165,7 +155,5 @@ COPY fp.cfg /home/topas/Desktop/
 
 RUN chmod a+rx /*.sh && chown topas /tmp/*
 
-COPY firefox.tgz /
 WORKDIR /home/topas
-COPY filetypes.python .config/geany/filedefs/
 CMD /startup.sh
