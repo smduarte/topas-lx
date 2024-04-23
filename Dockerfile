@@ -133,6 +133,10 @@ RUN apt-get update && apt-get install -y x11-xkb-utils \
 #	tar xvf openjdk-17.0.2_linux-x64_bin.tar.gz && \
 #	mv jdk-17.0.2/ /opt/jdk-17/
 
+RUN wget -O /tmp/vcs.deb https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64 && \
+	apt install /tmp/vcs.deb && rm /tmp/vcs.deb
+
+
 # tini for subreap
 ARG TINI_VERSION=v0.18.0
 ADD https://github.com/krallin/tini/releases/download/${TINI_VERSION}/tini /bin/tini
