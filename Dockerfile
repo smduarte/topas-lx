@@ -2,10 +2,10 @@ FROM ubuntu:18.04 as temp_files_eclipse
 
 WORKDIR /tmp
 
-ENV ECLIPSE eclipse-java-2022-03-R-linux-gtk-x86_64.tar.gz
-
+ENV ECLIPSE eclipse-java-2024-03-R-linux-gtk-x86_64.tar.gz 
+ENV ECLIPSE_MIRROR /technology/epp/downloads/release/2024-03/R/eclipse-java-2024-03-R-linux-gtk-x86_64.tar.gz
 RUN apt-get update && apt-get install -y wget && \
-    wget https://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release/2022-03/R/$ECLIPSE && \
+    wget -O $ECLIPSE https://ftp.snt.utwente.nl/pub/software/eclipse/technology/epp/downloads/release/2024-03/R/$ECLIPSE && \
 	tar xvfz $ECLIPSE
 
 
