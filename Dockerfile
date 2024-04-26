@@ -1,4 +1,4 @@
-FROM ubuntu:18.04 as temp_files_eclipse
+FROM ubuntu:20.04 as temp_files_eclipse
 
 WORKDIR /tmp
 
@@ -11,7 +11,7 @@ RUN apt-get update && apt-get install -y wget && \
 
 
 #------------------------------------------------------
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ENV DEBIAN_FRONTEND noninteractive
 
 # Install git, supervisor, VNC, & X11 packages
